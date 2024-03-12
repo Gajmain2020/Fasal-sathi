@@ -20,12 +20,6 @@ const NavigationOptions = [
 ];
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
     <div className="bg-yellow-200/30 px-[5%] py-0.5 flex justify-between items-center">
       <div>
@@ -51,15 +45,6 @@ export default function Navbar() {
           लॉग इन करें
         </button>
       </div>
-      <div className="hidden sm:flex">
-        <button onClick={toggleMenu} className="bg-gray-200/10 rounded-md">
-          {!isOpen ? (
-            <img src={Hamburger} className="w-10" alt="" />
-          ) : (
-            <img src={Close} className="w-10" alt="" />
-          )}
-        </button>
-      </div>
     </div>
   );
 }
@@ -67,8 +52,6 @@ export default function Navbar() {
 function NavigationButton({ buttonName, buttonUrl }) {
   const navigate = useNavigate();
   function handleClick() {
-    console.log(buttonUrl);
-    console.log(buttonName);
     navigate(buttonUrl);
   }
   return (
