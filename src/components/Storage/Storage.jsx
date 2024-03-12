@@ -6,13 +6,12 @@ import Heading from "../Common/Heading";
 import LOGO from "../../assets/LOGO.png";
 
 export default function Storage() {
+  const navigate = useNavigate();
   const [storageHouses, setStorageHouses] = useState([]);
   const [searchData, setSearchData] = useState("");
-  const [apiCalled, setApiCalled] = useState(false);
 
   useEffect(() => {
     if (storageHouses.length === 0) {
-      setApiCalled(true);
       getStorageHousesAPI()
         .then((res) => {
           setStorageHouses(res);
@@ -20,9 +19,7 @@ export default function Storage() {
         .catch((err) => {
           console.log(err);
         })
-        .finally(() => {
-          setApiCalled(false);
-        });
+        .finally(() => {});
     }
   }, []);
 
@@ -45,6 +42,13 @@ export default function Storage() {
   }
   function handleStorageCapacityChange() {
     console.log("storage capacity changed");
+  }
+  function handleStorageClick(id) {
+    navigate(`${id}`);
+  }
+  function handleImageClick(e) {
+    e.stopPropagation();
+    console.log("handle image click ");
   }
 
   return (
@@ -106,53 +110,91 @@ export default function Storage() {
       </div>
 
       {storageHouses.map((storageHouse) => (
-        <SingleStorageCard storageHouse={storageHouse} key={storageHouse.id} />
+        <SingleStorageCard
+          handleStorageClick={handleStorageClick}
+          storageHouse={storageHouse}
+          key={storageHouse.id}
+          handleImageClick={handleImageClick}
+        />
       ))}
     </div>
   );
 }
 
-function SingleStorageCard({ storageHouse }) {
-  //   const navigate = useNavigate();
-  function handleStorageClick() {
-    console.log("handleStorageClick");
-  }
+function SingleStorageCard({
+  storageHouse,
+  handleStorageClick,
+  handleImageClick,
+}) {
   return (
     <div
-      onClick={handleStorageClick}
+      onClick={() => handleStorageClick(storageHouse.id)}
       className="flex w-full justify-between items-center gap-4 bg-gray-200/20 px-2 py-2 rounded-md hover:bg-gray-200/40 cursor-pointer transition"
     >
       <div className="grid grid-cols-2 flex-1">
-        <div>
+        <div className="grid gap-2">
           <div>
             <span className="font-semibold">Name: </span>
             {storageHouse.name}
           </div>
           <div>
-            <span className="font-semibold">Name: </span>
-            {storageHouse.name}
+            <span className="font-semibold">Address: </span>
+            {storageHouse.location}
           </div>
           <div>
-            <span className="font-semibold">Name: </span>
-            {storageHouse.name}
+            <span className="font-semibold">Capacity: </span>
+            {storageHouse.capacity} Sqft
           </div>
           <div>
-            <span className="font-semibold">Name: </span>
-            {storageHouse.name}
-          </div>
-          <div>
-            <span className="font-semibold">Name: </span>
-            {storageHouse.name}
+            <span className="font-semibold">Contact: </span>
+            +91 {storageHouse.contact}
           </div>
         </div>
-        <div>hello</div>
+        <div className="grid gap-2">
+          <div>
+            <span className="font-semibold">Available For: </span>
+            {storageHouse.availability_duration} Month(s)
+          </div>
+          <div>
+            <span className="font-semibold">Price: </span>
+            {storageHouse.price} per month/per 100 sqft
+          </div>
+          <div>
+            <span className="font-semibold">Capacity: </span>
+            {storageHouse.capacity} Sqft
+          </div>
+          <div>
+            <span className="font-semibold">Availablity: </span>
+            {storageHouse.available === "Yes" ? (
+              <span>
+                Available{" "}
+                <div className="w-2 h-2 rounded-full bg-green-500 inline-block"></div>
+              </span>
+            ) : (
+              <span>
+                Not Available{" "}
+                <div className="w-2 h-2 rounded-full bg-red-500 inline-block"></div>
+              </span>
+            )}
+          </div>
+        </div>
       </div>
-      <div className="flex rounded-md justify-center items-center overflow-hidden h-32 w-48 bg-gray-200">
-        <img
-          className="h-full w-full object-center object-cover "
-          src={storageHouse.storage_image}
-          alt="Your Image"
-        />
+
+      <div>
+        <div
+          onClick={(e) => handleImageClick(e, storageHouse.storage_image)}
+          className="rounded-md justify-center items-center overflow-hidden h-32 w-48 relative group"
+        >
+          <img
+            className="h-full w-full object-center object-cover "
+            src={storageHouse.storage_image}
+            alt="Your Image"
+          />
+          <div className="absolute text-sm text-center bottom-0 left-0 right-0 bg-gray-800 bg-opacity-75 text-white p-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            Click for more images
+          </div>
+        </div>
+        <div className="flex items-center justify-center">⭐⭐⭐⭐</div>
       </div>
     </div>
   );
