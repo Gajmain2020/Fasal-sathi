@@ -1,20 +1,20 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getStorageHousesAPI } from "../../API/APIs";
+import { getAllCropsAPI, getStorageHousesAPI } from "../../API/APIs";
 import Heading from "../Common/Heading";
 import LOGO from "../../assets/LOGO.png";
 
-export default function Storage() {
+export default function Crops() {
   const navigate = useNavigate();
-  const [storageHouses, setStorageHouses] = useState([]);
+  const [crops, setCrops] = useState([]);
   const [searchData, setSearchData] = useState("");
 
   useEffect(() => {
-    if (storageHouses.length === 0) {
-      getStorageHousesAPI()
+    if (crops.length === 0) {
+      getAllCropsAPI()
         .then((res) => {
-          setStorageHouses(res);
+          setCrops(res);
         })
         .catch((err) => {
           console.log(err);
@@ -23,7 +23,7 @@ export default function Storage() {
     }
   }, []);
 
-  if (storageHouses.length === 0) {
+  if (crops.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center animate-pulse duration-50">
         <img src={LOGO} alt="Fasal Sathi Logo" />
@@ -43,8 +43,9 @@ export default function Storage() {
   function handleStorageCapacityChange() {
     console.log("storage capacity changed");
   }
-  function handleStorageClick(id) {
-    navigate(`${id}`);
+  function handleCropClick(crop) {
+    console.log(crop);
+    navigate(`${crop}`);
   }
   function handleImageClick(e) {
     e.stopPropagation();
@@ -58,7 +59,7 @@ export default function Storage() {
       <div className="flex gap-4">
         <div className="flex-1">
           <input
-            placeholder="🔍 भंडार गृह खोजें"
+            placeholder="🔍 Find your crop."
             type="text"
             name="search"
             className="w-full px-2 py-1 text-gray-200 bg-gray-200/20 rounded-md hover:shadow-md"
@@ -70,13 +71,13 @@ export default function Storage() {
             onClick={handleSearch}
             className="px-4 py-1 bg-green-402 font-semibold hover:bg-green-500/80 transition hover:shadow-md rounded-md"
           >
-            खोजें
+            Search
           </button>
         </div>
       </div>
 
       {/* //! filters only 2 at the time */}
-      <div className="flex gap-4 ">
+      {/* <div className="flex gap-4 ">
         <div className="flex items-center  justify-center">
           <select
             onChange={handleStorageTypeChange}
@@ -107,94 +108,65 @@ export default function Storage() {
             <option value="">500 वर्गफीट से अधिक (More Than 500 sqft)</option>
           </select>
         </div>
-      </div>
+      </div> */}
 
-      {storageHouses.map((storageHouse) => (
-        <SingleStorageCard
-          handleStorageClick={handleStorageClick}
-          storageHouse={storageHouse}
-          key={storageHouse.id}
-          handleImageClick={handleImageClick}
-        />
-      ))}
+      <div className="grid grid-cols-4 gap-4">
+        {crops.map((crop) => (
+          <SingleCropCard
+            handleStorageClick={handleCropClick}
+            crop={crop}
+            key={crop.id}
+          />
+        ))}
+      </div>
     </div>
   );
 }
 
-function SingleStorageCard({
-  storageHouse,
-  handleStorageClick,
-  handleImageClick,
-}) {
+function SingleCropCard({ crop, handleStorageClick }) {
   return (
     <div
-      onClick={() => handleStorageClick(storageHouse.id)}
-      className="flex w-full justify-between items-center gap-4 bg-gray-100/20 px-2 py-2 rounded-md hover:bg-gray-200/40 cursor-pointer transition"
+      onClick={() => handleStorageClick(crop.name)}
+      className="flex flex-col w-full justify-between items-center gap-4 bg-gray-100/20 px-2 py-2 rounded-md hover:bg-gray-200/40 cursor-pointer transition"
     >
-      <div className="grid grid-cols-2 flex-1">
-        <div className="grid gap-2">
-          <div>
-            <span className="font-semibold">Name: </span>
-            {storageHouse.name}
-          </div>
-          <div>
-            <span className="font-semibold">Address: </span>
-            {storageHouse.location}
-          </div>
-          <div>
-            <span className="font-semibold">Capacity: </span>
-            {storageHouse.capacity} Sqft
-          </div>
-          <div>
-            <span className="font-semibold">Contact: </span>
-            +91 {storageHouse.contact}
-          </div>
-        </div>
-        <div className="grid gap-2">
-          <div>
-            <span className="font-semibold">Available For: </span>
-            {storageHouse.availability_duration} Month(s)
-          </div>
-          <div>
-            <span className="font-semibold">Price: </span>
-            {storageHouse.price} per month/per 100 sqft
-          </div>
-          <div>
-            <span className="font-semibold">Capacity: </span>
-            {storageHouse.capacity} Sqft
-          </div>
-          <div>
-            <span className="font-semibold">Availablity: </span>
-            {storageHouse.available === "Yes" ? (
-              <span>
-                Available{" "}
-                <div className="w-2 h-2 rounded-full bg-green-500 inline-block"></div>
-              </span>
-            ) : (
-              <span>
-                Not Available{" "}
-                <div className="w-2 h-2 rounded-full bg-red-500 inline-block"></div>
-              </span>
-            )}
-          </div>
+      <div className="rounded-md flex justify-center items-center overflow-hidden h-32 w-full relative group">
+        <img
+          className="h-full w-full object-center object-cover "
+          src={crop.crop_image}
+          alt="Your Image"
+        />
+        <div className="absolute text-sm text-center bottom-0 left-0 right-0 bg-gray-800 bg-opacity-75 text-white p-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          Click for more images
         </div>
       </div>
 
-      <div>
-        <div
-          onClick={(e) => handleImageClick(e, storageHouse.storage_image)}
-          className="rounded-md justify-center items-center overflow-hidden h-32 w-48 relative group"
-        >
-          <img
-            className="h-full w-full object-center object-cover "
-            src={storageHouse.storage_image}
-            alt="Your Image"
-          />
-          <div className="absolute text-sm text-center bottom-0 left-0 right-0 bg-gray-800 bg-opacity-75 text-white p-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            Click for more images
+      <div className="grid flex-1">
+        <div className="grid gap-2">
+          <div>
+            <span className="font-semibold">Name: </span>
+            {crop.name}
+          </div>
+          <div>
+            <span className="font-semibold">Season: </span>
+            {crop.season}
+          </div>
+          <div>
+            <span className="font-semibold">Type: </span>
+            {crop.type} Crop
+          </div>
+          <div>
+            <span className="font-semibold">Harvest Month: </span>
+            {crop.month_of_harvest}
+          </div>
+          <div>
+            <span className="font-semibold">Pesticides Adviced: </span>
+            {crop.medicines_pesticides}
+          </div>
+          <div>
+            <span className="font-semibold">Best Soil: </span>
+            {crop.soil}
           </div>
         </div>
-        <div className="flex items-center justify-center">⭐⭐⭐⭐</div>
       </div>
     </div>
   );

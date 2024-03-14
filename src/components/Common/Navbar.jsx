@@ -6,16 +6,20 @@ import { useState } from "react";
 
 const NavigationOptions = [
   {
-    buttonName: "भंडारण सूची",
+    buttonName: "Storage Houses",
     buttonUrl: "/storage-house",
   },
   {
-    buttonName: "हमारे बारे में",
-    buttonUrl: "/about",
+    buttonName: "Crops",
+    buttonUrl: "/crops",
   },
   {
-    buttonName: "संपर्क करें",
-    buttonUrl: "/contact",
+    buttonName: "About Us",
+    buttonUrl: "/about-us",
+  },
+  {
+    buttonName: "Contact",
+    buttonUrl: "/contact-us",
   },
 ];
 
@@ -42,7 +46,7 @@ export default function Navbar() {
           />
         ))}
         <button className="px-3 py-2 font-semibold hover:shadow-md rounded-md hover:outline-2 bg-sky-200/70 text-gray-900 hover:bg-sky-200/90 transition">
-          लॉग इन करें
+          Login
         </button>
       </div>
     </div>
@@ -57,7 +61,7 @@ function NavigationButton({ buttonName, buttonUrl }) {
   return (
     <button
       onClick={handleClick}
-      className="px-3 py-2 font-semibold hover:shadow-md rounded-md hover:outline-2 transition hover:bg-gray-300/20"
+      className="px-2 py-2 font-semibold hover:shadow-md rounded-md hover:outline-2 transition hover:bg-gray-300/20"
     >
       {buttonName}
     </button>

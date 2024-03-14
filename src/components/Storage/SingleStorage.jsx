@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchSingleStorageDataAPI } from "../../API/Storage";
+import { fetchSingleStorageDataAPI } from "../../API/APIs";
 
 import LOGO from "../../assets/LOGO.png";
 import Heading from "../Common/Heading";

@@ -37,3 +37,16 @@ export async function fetchSingleStorageDataAPI(id) {
     return error.response.data;
   }
 }
+
+export async function fetchSingleCropDetailsAPI(crop) {
+  try {
+    console.log(crop);
+    const response = await axios({
+      url: API + `crops/${crop}`,
+      method: "GET",
+    });
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+}

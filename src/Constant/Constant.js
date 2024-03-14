@@ -43,7 +43,7 @@ const REVIEWS = [
     name: "Shashank Yadav",
     rating: "3",
     description:
-      "Had an heated argument with manager of the facility. Still they where coorporative",
+      "Had an heated argument with manager of the facility. Still they where coorporative.",
     posted: "7 months ago.",
   },
 ];
@@ -71,4 +71,43 @@ const STORAGE_FRATURES = [
   },
 ];
 
-export { LOCATION_URLS, REVIEWS, STORAGE_FRATURES, FEATURES };
+const QUERIES = [
+  {
+    name: "Shailesh Raj",
+    question:
+      "What are the best practices for organic cultivation of this crop?",
+    posted: "2 days ago.",
+    answers: [],
+  },
+  {
+    name: "Rajesh Lal",
+    question: "Can paddy cultivated in step farming?",
+    posted: "15 days ago.",
+    answers: [
+      {
+        name: "Shashank Yadav",
+        answer: "No.",
+        posted: "2 days ago.",
+      },
+    ],
+  },
+  {
+    name: "Rabindra Raj",
+    question: "What are the diseases possible?",
+    posted: "a month ago.",
+    answers: [
+      {
+        name: "Shashank Yadav",
+        answer: "Puffy Disease, Bacterial Blight",
+        posted: "25 days ago",
+      },
+      {
+        name: "Shruti Panday",
+        answer: "Brown patch of rice, Cold burn",
+        posted: "15 days ago",
+      },
+    ],
+  },
+];
+
+export { LOCATION_URLS, REVIEWS, STORAGE_FRATURES, FEATURES, QUERIES };
