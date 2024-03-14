@@ -14,6 +14,18 @@ export async function getStorageHousesAPI() {
   }
 }
 
+export async function getAllCropsAPI() {
+  try {
+    const response = await axios({
+      method: "GET",
+      url: API + "crops",
+    });
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+}
+
 export async function fetchSingleStorageDataAPI(id) {
   try {
     const response = await axios({

@@ -129,7 +129,7 @@ function SingleStorageCard({
   return (
     <div
       onClick={() => handleStorageClick(storageHouse.id)}
-      className="flex w-full justify-between items-center gap-4 bg-gray-200/20 px-2 py-2 rounded-md hover:bg-gray-200/40 cursor-pointer transition"
+      className="flex w-full justify-between items-center gap-4 bg-gray-100/20 px-2 py-2 rounded-md hover:bg-gray-200/40 cursor-pointer transition"
     >
       <div className="grid grid-cols-2 flex-1">
         <div className="grid gap-2">

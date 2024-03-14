@@ -11,7 +11,7 @@ function App() {
       <div className="background"></div>
       <div className="">
         <Navbar />
-        <div className="max-w-[90%] mx-auto min-h-100">
+        <div className="max-w-[92%] mx-auto">
           <Routes>
             <Route path="" element={<Homepage />} />
             <Route path="/storage-house">
