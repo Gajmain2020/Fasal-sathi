@@ -54,7 +54,7 @@ export default function Crops() {
 
   return (
     <div className="py-4 grid gap-4">
-      <Heading>भंडार गृह</Heading>
+      <Heading>Crops</Heading>
       {/* //! search field */}
       <div className="flex gap-4">
         <div className="flex-1">

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Link, useNavigate } from "react-router-dom";
 import LOGO from "../../assets/LOGO.png";
 import Hamburger from "../../assets/Hamburger.svg";
@@ -54,16 +55,11 @@ export default function Navbar() {
 }
 
 function NavigationButton({ buttonName, buttonUrl }) {
-  const navigate = useNavigate();
-  function handleClick() {
-    navigate(buttonUrl);
-  }
   return (
-    <button
-      onClick={handleClick}
-      className="px-2 py-2 font-semibold hover:shadow-md rounded-md hover:outline-2 transition hover:bg-gray-300/20"
-    >
-      {buttonName}
-    </button>
+    <Link to={`${buttonUrl}`}>
+      <button className="px-2 py-2 font-semibold hover:shadow-md rounded-md hover:outline-2 transition hover:bg-gray-300/20">
+        {buttonName}
+      </button>
+    </Link>
   );
 }

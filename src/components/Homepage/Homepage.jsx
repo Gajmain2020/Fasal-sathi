@@ -1,39 +1,56 @@
-export default function Homepage() {
+import { useEffect, useState } from "react";
+import { IMAGES } from "../../Constant/Constant";
+
+const Homepage = () => {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % 3);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
-      facere numquam reiciendis quis illum optio veniam quisquam quod
-      recusandae, quos nostrum nobis consequuntur, hic reprehenderit cum nisi
-      quo esse totam natus. Neque error dolorum quaerat consectetur tempora
-      maxime voluptatibus reiciendis totam assumenda, quam exercitationem culpa
-      architecto, dolore placeat dolorem, cumque voluptatum soluta corrupti ea
-      delectus provident incidunt. Tempore, voluptas. Fugiat sed doloremque
-      molestias nesciunt tenetur quos inventore labore magnam voluptate quae?
-      Veritatis, a? Doloribus hic enim cumque blanditiis repellendus est magnam
-      sit impedit assumenda quas at sed quia, incidunt modi dignissimos aut
-      facilis. Pariatur nihil, corporis consectetur odit delectus fuga. Lorem
-      ipsum dolor sit amet consectetur adipisicing elit. Voluptate repudiandae
-      molestias eligendi nesciunt eos molestiae earum laborum odit facilis.
-      Quisquam similique aliquid vitae! Blanditiis vero nihil, error repellat ea
-      incidunt optio quaerat eum possimus magnam reprehenderit sunt illum minus,
-      asperiores labore fugit eveniet vitae distinctio quas porro? Incidunt
-      laudantium qui odio nulla voluptatum dolorem eligendi veritatis iste aut
-      corporis non explicabo dignissimos eos, mollitia aspernatur. Nisi
-      provident blanditiis sunt mollitia. Exercitationem, ab inventore
-      accusantium nihil saepe voluptatibus, magnam quibusdam necessitatibus
-      sunt, magni quo est debitis placeat consequuntur unde eum accusamus.
-      Consectetur blanditiis asperiores explicabo dolorum facere consequuntur
-      aut illum quisquam nemo beatae. Temporibus id odit et adipisci optio,
-      officiis consectetur quod molestiae vel assumenda natus aliquid sunt
-      laudantium ab molestias cumque eum nemo est voluptatem libero totam. Odio,
-      nihil? Sapiente, iusto! Amet perferendis recusandae officia commodi
-      eveniet repellendus enim porro libero tenetur eligendi facilis impedit,
-      iusto, quae vitae ipsa deleniti odio consequuntur iure soluta sequi odit
-      quidem dicta quasi quibusdam. Repellendus ratione hic molestiae architecto
-      reiciendis illo laudantium quam excepturi ab eum sint iure veritatis a
-      blanditiis doloribus iusto, odio magni accusantium! Beatae sapiente sint
-      et ipsam fugit ut, iste ratione dolores eveniet maxime consequuntur? Quam
-      nemo nisi illum natus!
+    <div className="bg-gradient-to-b from-indigo-300/20 to-gray-800/30 mt-2 rounded-md">
+      <div className="max-w-7xl mx-auto py-2 px-2 text-white">
+        <div className="h-96 cursor-pointer rounded-md overflow-hidden">
+          <img
+            src={IMAGES[index]}
+            className="w-full h-full object-fit"
+            alt=""
+          />
+        </div>
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-4xl font-extrabold tracking-tight">
+            Welcome to Fasal Sathi
+          </h2>
+          <p className="mt-4 text-lg">
+            <ul>
+              <li>
+                Helping farmers preserve their harvest by providing access to
+                modern storage facilities across India.
+              </li>
+              <li>
+                Our mission is to bridge the gap between farmers and storage
+                solutions, ensuring that their hard work doesn&apos;t go to
+                waste.
+              </li>
+            </ul>
+          </p>
+          <div className="mt-6">
+            <a
+              href="/storage-house"
+              className="inline-block bg-white py-3 px-8 border border-transparent rounded-md text-base font-semibold text-indigo-600 hover:bg-indigo-600 hover:text-white transition duration-300 ease-in-out"
+            >
+              Explore Facilities
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   );
-}
+};
+
+export default Homepage;

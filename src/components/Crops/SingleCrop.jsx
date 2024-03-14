@@ -6,7 +6,7 @@ import { fetchSingleCropDetailsAPI } from "../../API/APIs";
 import LOGO from "../../assets/LOGO.png";
 import Heading from "../Common/Heading";
 
-import { QUERIES } from "../../Constant/Constant";
+import { ABOUT_CROP, QUERIES } from "../../Constant/Constant";
 import SubHeading from "../Common/SubHeading";
 
 export default function SingleCrop() {
@@ -127,6 +127,12 @@ export default function SingleCrop() {
         </div>
       </div>
 
+      {/* FEATURES */}
+      <SubHeading>About {cropData.name}</SubHeading>
+      <div className="text-lg px-1">
+        {ABOUT_CROP.find((crop) => crop.name === cropData.name).about}
+      </div>
+
       {/* Queries */}
       <div className="grid gap-4 px-5">
         <SubHeading>Queries</SubHeading>
@@ -170,8 +176,6 @@ export default function SingleCrop() {
           </div>
         </div>
       </div>
-
-      {/* FEATURES */}
     </div>
   );
 }
@@ -194,7 +198,7 @@ function SingleQuery({ que }) {
             <span key={idx}>
               {ans.answer}&nbsp;
               <span className="text-gray-300">
-                by {ans.name} on {ans.posted}
+                by {ans.name} <span className="text-sm"> {ans.posted}</span>
               </span>
             </span>
           ))
@@ -202,18 +206,6 @@ function SingleQuery({ que }) {
       </div>
 
       <p className="text-gray-200 text-xs">Posted: {que.posted}</p>
-    </div>
-  );
-}
-
-function SingleFeatureCard({ feature, idx }) {
-  return (
-    <div className="bg-gray-200/10 px-3 py-2 rounded-md hover:bg-gray-300 hover:text-gray-900 transition hover:shadow-md">
-      <div className="w-24 mx-auto "></div>
-      <div className="text-lg font-serif font-semibold underline">
-        {feature.feature}
-      </div>
-      <span>{feature.description}</span>
     </div>
   );
 }
